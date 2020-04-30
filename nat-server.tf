@@ -29,7 +29,7 @@ resource "aws_instance" "nat" {
       /* Generate OpenVPN server config */
       "sudo docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://aws_instance.nat.public_ip",
       /* Generate the EasyRSA PKI certificate authority */
-      "sudo docker run -v $OVPN_DATA:/etc/openwithout manual inputvpn --rm -it kylemanna/openvpn ovpn_initpki",
+      "sudo docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki",
       "sudo docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp ----cap-add=NET_ADMIN kylemanna/openvpn",
       "sudo docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full $CLIENTNAME nopass",
       "sudo docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient $CLIENTNAME"
